@@ -2,7 +2,7 @@
 import express from "express";
 import csv from "csv-parser";
 import fs from "fs";
-import { createTeamObject, modifyTeamObject } from "./src/utils/csvUtils.js";
+import { createTeamObject, modifyTeamObject } from "./utils/csvUtils.js";
 
 const app = express();
 const PORT = 3000;
