@@ -1,44 +1,73 @@
+const RED_SELECTION_IDX = 0;
+const YELL_SELECTION_IDX = 1;
+const GREEN_SELECTION_IDX = 2;
+const END_DATE = 1647507600; // March 17 2022 9am GMT
+const START_DATE = 1646902800; // March 10 2022 9am GMT
+
 export const createTeamObject = (row) => {
-  //if it exists
-  // TODO: csv is already sorted by timestamp i think; it needs to display the last 7 elaboration values and selection values
-  const managerID = row.SlackTeamId.split("&")[0];
+  const managerId = row.SlackTeamId.split("&")[0];
   const elaborationArr = setElaboration([], row.Elaboration);
 
-  const [redSelection, yellowSelection, greenSelection] = setSelection(
-    row.Selection,
-    0,
-    0,
-    0
-  );
+  const rygOverallSelectionArr = setSelection(row.Selection, [0, 0, 0]);
+  const overallStatus = setStatus(rygOverallSelectionArr);
+
+  let rygWeeklySelectionArr = [0, 0, 0];
+  let weeklyStatus = "no data this week :(";
+  if (checkSelectionTimeValid(row.Timestamp)) {
+    rygWeeklySelectionArr = setSelection(row.Selection, [0, 0, 0]);
+    weeklyStatus = setStatus(rygWeeklySelectionArr);
+  }
 
   return {
-    managerID: managerID,
+    teamId: row.SlackTeamId,
+    managerId: managerId,
     elaboration: elaborationArr,
-    redSelection: redSelection,
-    yellowSelection: yellowSelection,
-    greenSelection: greenSelection,
+    rygOverallSelection: rygOverallSelectionArr,
+    rygWeeklySelection: rygWeeklySelectionArr,
+    weeklyStatus: weeklyStatus,
+    overallStatus: overallStatus,
   };
 };
 
+/**
+ * Modifies an existing team with the new elaboration/selection info
+ * @param {} row one row of csv file
+ * @param {*} teamInfo info already existing in team object
+ * @returns newly modified team info
+ */
 export const modifyTeamObject = (row, teamInfo) => {
   setElaboration(teamInfo.elaboration, row.Elaboration);
-  // console.log(
-  //   "before: " +
-  //     "red: " +
-  //     teamInfo.redSelection +
-  //     " green: " +
-  //     teamInfo.greenSelection +
-  //     " yellow: " +
-  //     teamInfo.yellowSelection
-  // );
-  [teamInfo.redSelection, teamInfo.yellowSelection, teamInfo.greenSelection] =
-    setSelection(
+  const selectionArr = setSelection(
+    row.Selection,
+    teamInfo.rygOverallSelection
+  );
+  teamInfo.overallStatus = setStatus(selectionArr);
+
+  if (checkSelectionTimeValid(row.Timestamp)) {
+    const selectionArr = setSelection(
       row.Selection,
-      teamInfo.redSelection,
-      teamInfo.greenSelection,
-      teamInfo.yellowSelection
+      teamInfo.rygWeeklySelection
     );
+    teamInfo.weeklyStatus = setStatus(selectionArr);
+    // console.log(teamInfo);
+  }
   return teamInfo;
+};
+
+const setStatus = (selectionArr) => {
+  if (selectionArr) {
+    const max = Math.max(selectionArr[0], selectionArr[1], selectionArr[2]);
+    if (max == selectionArr[0]) {
+      return "needs help!";
+    } else if (max == selectionArr[1]) {
+      return "doing so-so";
+    } else {
+      return "doing great!";
+    }
+  } else {
+    console.log("selectionArr doesn't exist", selectionArr);
+    return 0;
+  }
 };
 
 /** Sets the elaboration values for the team object
@@ -55,29 +84,28 @@ const setElaboration = (elaborationArr, elaboration) => {
 
 /** Sets the selection values for the team object
  * @param color color is the color being analyzed
- * @param redSelection redSelection is the curr number of reds in the team
- * @param greenSelection greenSelction is the curr number of greens in the team
- * @param yellowSelection yellowSelection is the curr number of yellows in the team
+ * @param selectionArr selection array to update; arr is formatted as red, yellow, green
+ * @param isWeeklySelection true if it is setting the # of selections this week, false if setting # of selections overall
  */
-const setSelection = (color, redSelection, greenSelection, yellowSelection) => {
+const setSelection = (color, selectionArr) => {
   switch (color) {
     case "red":
-      redSelection++;
+      selectionArr[RED_SELECTION_IDX]++;
       break;
     case "yellow":
-      yellowSelection++;
+      selectionArr[YELL_SELECTION_IDX]++;
       break;
     case "green":
-      greenSelection++;
+      selectionArr[GREEN_SELECTION_IDX]++;
       break;
   }
-  // console.log(
-  //   "red " +
-  //     redSelection +
-  //     " green " +
-  //     greenSelection +
-  //     " yellow " +
-  //     yellowSelection
-  // );
-  return [redSelection, yellowSelection, greenSelection];
+  return selectionArr;
+};
+
+const checkSelectionTimeValid = (timestamp) => {
+  if (timestamp >= START_DATE && timestamp <= END_DATE) {
+    return true;
+  } else {
+    return false;
+  }
 };
