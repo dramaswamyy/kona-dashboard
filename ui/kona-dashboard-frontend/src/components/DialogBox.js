@@ -2,15 +2,17 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
+import {
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Dialog,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
+import { ElaborationList } from "./ElaborationList.js";
 import { YELLOW, RED, GREEN } from "../constants/colors";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -74,7 +76,7 @@ export const DialogBox = (props) => {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        More Info
+        Report
       </Button>
       <BootstrapDialog
         onClose={handleClose}
@@ -101,10 +103,10 @@ export const DialogBox = (props) => {
           >
             {statusMsg}
           </Typography>
-          <Typography gutterBottom>
-            Here's what the team is saying this week:
-          </Typography>
-          <Typography gutterBottom>3</Typography>
+          <ElaborationList elaboration={props.elaboration} />
+          {/* <Typography gutterBottom>{firstElab}</Typography>
+          <Typography gutterBottom>{secondElab}</Typography>
+          <Typography gutterBottom>{thirdElab}</Typography> */}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

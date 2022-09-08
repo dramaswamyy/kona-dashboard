@@ -25,17 +25,18 @@ const getStatus = (params) => {
   }
 };
 
-const getButton = (params) => {
+const getDialogButton = (params) => {
   const teamId = params.row.teamId;
   const managerId = params.row.managerId;
   const weeklyStatus = params.row.weeklyStatus;
+  const elaboration = params.row.elaboration;
   return (
     <>
-      {/* <Button variant="outlined">Learn More</Button> */}
       <DialogBox
         teamId={teamId}
         managerId={managerId}
         weeklyStatus={weeklyStatus}
+        elaboration={elaboration}
       />
     </>
   );
@@ -67,11 +68,11 @@ const columns = [
   },
   {
     field: "learnMore",
-    headerName: "More Info",
+    headerName: "Report",
     description: "This column is not sortable.",
     sortable: false,
     width: 150,
-    renderCell: getButton,
+    renderCell: getDialogButton,
   },
 ];
 

@@ -15,7 +15,7 @@ export const createTeamObject = (row) => {
 
   let rygWeeklySelectionArr = [0, 0, 0];
   let weeklyStatus = "no data this week :(";
-  if (checkSelectionTimeValid(row.Timestamp)) {
+  if (checkTimeValid(row.Timestamp)) {
     rygWeeklySelectionArr = setSelection(row.Selection, [0, 0, 0]);
     weeklyStatus = setStatus(rygWeeklySelectionArr);
   }
@@ -45,7 +45,7 @@ export const modifyTeamObject = (row, teamInfo) => {
   );
   teamInfo.overallStatus = setStatus(selectionArr);
 
-  if (checkSelectionTimeValid(row.Timestamp)) {
+  if (checkTimeValid(row.Timestamp)) {
     const selectionArr = setSelection(
       row.Selection,
       teamInfo.rygWeeklySelection
@@ -79,13 +79,13 @@ const setStatus = (selectionArr) => {
   }
 };
 
-/** Sets the elaboration values for the team object
+/** Sets the weekly elaboration values for the team object
  * @elaborationArr the current elaboration array in the team object
  * @elaboration the elaboration being analyzed
  */
 const setElaboration = (elaborationArr, elaboration) => {
-  if (elaboration.length > 0) {
-    // only add non empty strings to map
+  if (checkTimeValid && elaboration.length > 0 && elaboration != "null") {
+    // only add non empty strings to map and elaboration this week
     elaborationArr.push(elaboration);
   }
   return elaborationArr;
@@ -111,7 +111,7 @@ const setSelection = (color, selectionArr) => {
   return selectionArr;
 };
 
-const checkSelectionTimeValid = (timestamp) => {
+const checkTimeValid = (timestamp) => {
   if (timestamp >= START_DATE && timestamp <= END_DATE) {
     return true;
   } else {
