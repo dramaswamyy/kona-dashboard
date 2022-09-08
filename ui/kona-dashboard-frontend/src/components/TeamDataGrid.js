@@ -2,37 +2,53 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+import MoodBadIcon from "@mui/icons-material/MoodBad";
+import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
+import MoodIcon from "@mui/icons-material/Mood";
 
 const getStatus = (params) => {
-  return params.row.distribution * 5;
+  const val = params.value;
+  if (val === "doing great!") {
+    return <MoodIcon color="primary" />;
+  } else if (val === "doing so-so") {
+    return <SentimentNeutralIcon color="secondary" />;
+  } else if (val === "needs help!") {
+    return <MoodBadIcon color="tertiary" />;
+  } else {
+    return (
+      <>
+        <p>something went wrong.</p>
+      </>
+    );
+  }
 };
 
 const columns = [
-  { field: "teamId", headerName: "teamId", width: 90 },
+  { field: "teamId", headerName: "Team ID", width: 150 },
   {
-    field: "weeklyStatus",
-    headerName: "weekly status",
+    field: "managerId",
+    headerName: "Manager ID",
     width: 150,
     editable: false,
   },
   {
-    field: "managerId",
-    headerName: "Manager ID",
-    width: 110,
+    field: "weeklyStatus",
+    headerName: "Weekly Status",
+    width: 150,
+    headerAlign: "center",
     editable: false,
+    sortable: false,
+    renderCell: getStatus,
   },
-  //   {
-  //     field: "button",
-  //     headerName: "Button",
-  //     description: "This column has a value getter and is not sortable.",
-  //     sortable: false,
-  //     width: 160,
-  //     renderCell: (params) => (
-  //       <>
-  //         <button>{params.value}</button>
-  //       </>
-  //     ),
-  //   },
+  {
+    field: "overallStatus",
+    headerName: "Overall Status",
+    description: "This column is not sortable.",
+    sortable: false,
+    headerAlign: "center",
+    width: 150,
+    renderCell: getStatus,
+  },
 ];
 
 export const TeamDataGrid = () => {
@@ -51,7 +67,7 @@ export const TeamDataGrid = () => {
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
-      <h1>{!data ? "Loading..." : data}</h1>
+      <h1>{!data ? "Loading..." : "Kona x ORG ID"}</h1>
       <DataGrid
         rows={rows}
         columns={columns}
