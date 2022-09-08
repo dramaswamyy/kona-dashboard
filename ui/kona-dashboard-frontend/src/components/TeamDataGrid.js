@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+import { Button, Box } from "@mui/material";
 import MoodBadIcon from "@mui/icons-material/MoodBad";
 import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
 import MoodIcon from "@mui/icons-material/Mood";
 import { GREEN, RED, YELLOW } from "../constants/colors.js";
+import { DialogBox } from "./DialogBox.js";
+
 const getStatus = (params) => {
   const val = params.value;
   if (val === GREEN) {
@@ -23,6 +25,22 @@ const getStatus = (params) => {
   }
 };
 
+const getButton = (params) => {
+  const teamId = params.row.teamId;
+  const managerId = params.row.managerId;
+  const weeklyStatus = params.row.weeklyStatus;
+  return (
+    <>
+      {/* <Button variant="outlined">Learn More</Button> */}
+      <DialogBox
+        teamId={teamId}
+        managerId={managerId}
+        weeklyStatus={weeklyStatus}
+      />
+    </>
+  );
+};
+
 const columns = [
   { field: "teamId", headerName: "Team ID", width: 150 },
   {
@@ -35,7 +53,6 @@ const columns = [
     field: "weeklyStatus",
     headerName: "Weekly Status",
     width: 150,
-    headerAlign: "center",
     editable: false,
     sortable: false,
     renderCell: getStatus,
@@ -45,9 +62,16 @@ const columns = [
     headerName: "Overall Status",
     description: "This column is not sortable.",
     sortable: false,
-    headerAlign: "center",
     width: 150,
     renderCell: getStatus,
+  },
+  {
+    field: "learnMore",
+    headerName: "More Info",
+    description: "This column is not sortable.",
+    sortable: false,
+    width: 150,
+    renderCell: getButton,
   },
 ];
 
@@ -66,8 +90,8 @@ export const TeamDataGrid = () => {
   }, [rows]);
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
-      <h1>{!data ? "Loading..." : "Kona x ORG ID"}</h1>
+    <Box sx={{ height: 400, width: "60%" }}>
+      <h1>{!data ? "Loading..." : "Welcome Kona x ORG ID!"}</h1>
       <DataGrid
         rows={rows}
         columns={columns}
