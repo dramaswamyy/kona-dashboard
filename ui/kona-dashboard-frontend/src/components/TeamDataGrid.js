@@ -5,14 +5,14 @@ import { DataGrid } from "@mui/x-data-grid";
 import MoodBadIcon from "@mui/icons-material/MoodBad";
 import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
 import MoodIcon from "@mui/icons-material/Mood";
-
+import { GREEN, RED, YELLOW } from "../constants/colors.js";
 const getStatus = (params) => {
   const val = params.value;
-  if (val === "doing great!") {
+  if (val === GREEN) {
     return <MoodIcon color="primary" />;
-  } else if (val === "doing so-so") {
+  } else if (val === YELLOW) {
     return <SentimentNeutralIcon color="secondary" />;
-  } else if (val === "needs help!") {
+  } else if (val === RED) {
     return <MoodBadIcon color="tertiary" />;
   } else {
     return (

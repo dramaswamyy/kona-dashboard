@@ -9,6 +9,7 @@ const PORT = 8000;
 
 const db = new Map();
 let isFileRead = false;
+
 const getStream = () => {
   return fs.createReadStream("rygs.csv").pipe(csv());
 };
