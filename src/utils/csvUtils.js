@@ -63,7 +63,7 @@ export const modifyTeamObject = (row, teamInfo) => {
 };
 
 /**
- * If in a team of 10 people: 3 will need to vote red/yellow to return GREEN as overall status of team,
+ * Formula follows this reasoning: in a team of 10 people: 3 will need to vote red/yellow to return GREEN as overall status of team,
  * 5 will need to vote red/yellow to return green, 4 will need to vote red/yellow to return yellow
  */
 const setStatus = (selectionArr) => {

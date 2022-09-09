@@ -102,15 +102,11 @@ const columns = [
 /** Main component */
 export const TeamDataGrid = () => {
   const [rows, setRows] = useState([]);
-  // const [isDataLoaded, setDataLoaded] = useState[false];
   useEffect(() => {
-    // if (!isDataLoaded) {
     const fetchFunc = async () => {
       const response = await fetch("/teamInfo");
       const teamInfoArr = await response.json();
       setRows(teamInfoArr);
-      // setDataLoaded(true);
-      // };
     };
     fetchFunc();
   }, []);

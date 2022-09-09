@@ -6,20 +6,26 @@ const styles = {
   },
 };
 
+const header = (elaborationArr) => {
+  return elaborationArr.length === 0
+    ? "Looks like this team didn't use Kona this week :("
+    : "Here's what the team is saying this week:";
+};
+
 /**
  * Report generated that explains more about what the team is doing that week
  */
 export const ElaborationList = (props) => {
   const arr = props.elaboration;
   const [firstElab, secondElab, thirdElab] = props.elaboration.slice(
-    arr.length - 4,
-    arr.length - 1
+    arr.length - 3,
+    arr.length
   );
 
   return (
     <>
       <List>
-        Here's what the team is saying this week:
+        {header(arr)}
         <ListItem>
           <ListItemText sx={styles.listItem}>{firstElab}</ListItemText>
         </ListItem>
