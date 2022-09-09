@@ -14,6 +14,9 @@ The project should compile/reload fine if you make any changes to the code local
   npm install npm@latest -g
   ```
 * clone this repo
+  ```sh
+https://github.com/dramaswamyy/kona-dashboard.git
+  ```
 * install npm packages
    ```sh
    npm install
