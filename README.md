@@ -18,7 +18,7 @@ The project should compile/reload fine if you make any changes to the code local
   https://github.com/dramaswamyy/kona-dashboard.git
   ```
 * next you'll need to download the csv file used for this project (rygs.csv!) the csv file should be added to the ROOT of the folder under kona-dashboard.
-* install npm packages
+* install npm packages. if you run into any errors that seem dependency-related, just npm install + the error... for ex. npm install  react-scripts.
    ```sh
    npm install
    ```
