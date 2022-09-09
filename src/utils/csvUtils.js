@@ -3,12 +3,18 @@ import { GREEN, RED, YELLOW } from "../constants/colors.js";
 const RED_SELECTION_IDX = 0;
 const YELL_SELECTION_IDX = 1;
 const GREEN_SELECTION_IDX = 2;
-const END_DATE = 1647507600; // March 17 2022 9am GMT
-const START_DATE = 1646902800; // March 10 2022 9am GMT
 
+/** March 17 2022 9am GMT; a day after the input's latest timestamp */
+const END_DATE = 1647507600;
+/** March 10 2022 9am GMT; 7 days before END_DATE */
+const START_DATE = 1646902800;
+
+/**
+ * Creates a team object with the neccessary fields
+ */
 export const createTeamObject = (row) => {
   const managerId = row.SlackTeamId.split("&")[0];
-  const elaborationArr = setElaboration([], row.Elaboration);
+  const elaborationArr = [];
 
   const rygOverallSelectionArr = setSelection(row.Selection, [0, 0, 0]);
   const overallStatus = setStatus(rygOverallSelectionArr);
@@ -18,6 +24,7 @@ export const createTeamObject = (row) => {
   if (checkTimeValid(row.Timestamp)) {
     rygWeeklySelectionArr = setSelection(row.Selection, [0, 0, 0]);
     weeklyStatus = setStatus(rygWeeklySelectionArr);
+    elaborationArr = setElaboration(elaborationArr, row.Elaboration);
   }
 
   return {
@@ -38,7 +45,6 @@ export const createTeamObject = (row) => {
  * @returns newly modified team info
  */
 export const modifyTeamObject = (row, teamInfo) => {
-  setElaboration(teamInfo.elaboration, row.Elaboration);
   const selectionArr = setSelection(
     row.Selection,
     teamInfo.rygOverallSelection
@@ -51,7 +57,7 @@ export const modifyTeamObject = (row, teamInfo) => {
       teamInfo.rygWeeklySelection
     );
     teamInfo.weeklyStatus = setStatus(selectionArr);
-    // console.log(teamInfo);
+    setElaboration(teamInfo.elaboration, row.Elaboration);
   }
   return teamInfo;
 };
@@ -84,7 +90,7 @@ const setStatus = (selectionArr) => {
  * @elaboration the elaboration being analyzed
  */
 const setElaboration = (elaborationArr, elaboration) => {
-  if (checkTimeValid && elaboration.length > 0 && elaboration != "null") {
+  if (elaboration.length > 0 && elaboration != "null") {
     // only add non empty strings to map and elaboration this week
     elaborationArr.push(elaboration);
   }
@@ -111,6 +117,7 @@ const setSelection = (color, selectionArr) => {
   return selectionArr;
 };
 
+/** Checks if the time is within the last week of the current date. Used to set the weekly status. */
 const checkTimeValid = (timestamp) => {
   if (timestamp >= START_DATE && timestamp <= END_DATE) {
     return true;

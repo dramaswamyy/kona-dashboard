@@ -1,4 +1,4 @@
-import { ListItem, List, ListItemText, ListSubheader } from "@mui/material";
+import { ListItem, List, ListItemText } from "@mui/material";
 
 const styles = {
   listItem: {
@@ -6,21 +6,15 @@ const styles = {
   },
 };
 
-const doesElabExist = (elab) => {
-  if (elab.length() > 1) {
-    return `"${elab}"`;
-  } else {
-    return null;
-  }
-};
-
+/**
+ * Report generated that explains more about what the team is doing that week
+ */
 export const ElaborationList = (props) => {
   const arr = props.elaboration;
   const [firstElab, secondElab, thirdElab] = props.elaboration.slice(
     arr.length - 4,
     arr.length - 1
   );
-  console.log(props.elaboration);
 
   return (
     <>

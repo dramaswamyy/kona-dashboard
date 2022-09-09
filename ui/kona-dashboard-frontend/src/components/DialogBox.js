@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
@@ -12,7 +13,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { ElaborationList } from "./ElaborationList.js";
-import { YELLOW, RED, GREEN } from "../constants/colors";
+import { YELLOW, RED, GREEN, GRAY } from "../constants/colors";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -35,6 +36,7 @@ const BootstrapDialogTitle = (props) => {
           onClick={onClose}
           sx={{
             position: "absolute",
+            fontStyle: "bold",
             right: 8,
             top: 8,
           }}
@@ -51,6 +53,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
+/** gets status messages to send */
 const getStatusMsg = (status) => {
   if (status === YELLOW) {
     return "Things are a little rocky.";
@@ -61,8 +64,9 @@ const getStatusMsg = (status) => {
   }
 };
 
+/** main component */
 export const DialogBox = (props) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -98,15 +102,16 @@ export const DialogBox = (props) => {
           </Typography>
           <Typography
             gutterBottom
-            color="primary"
-            sx={{ fontStyle: "italic", marginTop: 2, marginBottom: 2 }}
+            color={GRAY}
+            sx={{
+              fontStyle: "italic",
+              marginTop: 2,
+              marginBottom: 2,
+            }}
           >
             {statusMsg}
           </Typography>
           <ElaborationList elaboration={props.elaboration} />
-          {/* <Typography gutterBottom>{firstElab}</Typography>
-          <Typography gutterBottom>{secondElab}</Typography>
-          <Typography gutterBottom>{thirdElab}</Typography> */}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

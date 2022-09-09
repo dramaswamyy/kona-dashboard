@@ -1,10 +1,11 @@
-import { TeamDataTable } from "./components/TeamDataTable";
 import { TeamDataGrid } from "./components/TeamDataGrid";
-import { grey } from "@mui/material/colors";
 
 const styles = {
   container: {
-    margin: 50,
+    display: "flex",
+    flex: 1,
+    justifyContent: "center",
+    marginTop: 70,
   },
 };
 

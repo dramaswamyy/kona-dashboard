@@ -7,9 +7,8 @@ import { createTeamObject, modifyTeamObject } from "./utils/csvUtils.js";
 const app = express();
 const PORT = 8000;
 
-const db = new Map();
+let db = new Map();
 let isFileRead = false;
-
 const getStream = () => {
   return fs.createReadStream("rygs.csv").pipe(csv());
 };
@@ -43,17 +42,16 @@ const streamToString = (stream) => {
     });
   });
 };
-
-app.get("/api", (req, res) => {
-  if (!isFileRead) {
-    console.log("reading csv file");
-    const stream = getStream();
-    streamToString(stream).then((teamInfoArr) => {
-      // console.log(teamInfoArr);
-      res.send(teamInfoArr);
-    });
-    isFileRead = true;
-  }
+/**
+ * Parses file for team info once when the endpoint is called and never again.
+ */
+app.get("/teamInfo", (req, res) => {
+  const stream = getStream();
+  streamToString(stream).then((teamInfoArr) => {
+    const newArr = teamInfoArr;
+    db = new Map();
+    res.send(newArr);
+  });
 });
 
 app.listen(PORT, () => {
