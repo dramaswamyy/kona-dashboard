@@ -60,7 +60,7 @@ const getStatusMsg = (status) => {
   } else if (status === RED) {
     return "Oh no, it looks like this team needs some help.";
   } else if (status === GREEN) {
-    return "Yay! This team is doing great.";
+    return "Yay! Looks like we have some wins to celebrate. ";
   }
 };
 
