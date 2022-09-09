@@ -43,7 +43,7 @@ const streamToString = (stream) => {
   });
 };
 /**
- * Parses file for team info once when the endpoint is called and never again.
+ * Parses file for team info once when the endpoint is called.
  */
 app.get("/teamInfo", (req, res) => {
   const stream = getStream();
