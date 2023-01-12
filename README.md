@@ -123,10 +123,10 @@ Congrats, you've successfully run the project :partying_face:
 ## Usage
 
 Example of a report generated for a team that uses Kona:
-[![Report View 1][report-1]]
+![Report View 2][report-2]
 
 Example of a report generated for a team that doesn't use Kona often:
-[![Report View 2][report-2]]
+![Report View 1][report-1]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
