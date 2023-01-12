@@ -22,17 +22,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="ui/kona-dashboard-frontend/src/assets/dog.png" alt="Logo" width="80" height="80">
-  </a>
 
 <h3 align="center">Kona Dashboard For Admins</h3>
 
   <p align="center">
     A simple, clean dashboard that explores using Kona from an "admin" perspective.
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
   </p>
 </div>
 
@@ -42,7 +36,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]
+[![Product Name Screen Shot][product-screenshot]](https://github.com/dramaswamyy/kona-dashboard)
 
 Based on: https://www.heykona.com/
 ### The Problem
@@ -50,15 +44,15 @@ Kona (at the time of this project) is a daily emotional check-in for teams where
 As Kona expanded to multiple teams within companies, one of the key customer segments they aimed to provide value to were “admins”. Admins were defined as either a **manager of managers** (directly or indirectly oversees more than 1 team), or **People Ops/CXOs** (is responsible for the wellbeing of the entire company).
 
 ### The Goal
-Use red-yellow-green (RYG) data to create a simple MVP dashboard view to inform admins on well-being in their organization.
+Use the red-yellow-green (RYG) data that Kona collects from users to create a simple MVP dashboard view to inform admins on well-being in their organization.
 
 ### The Solution
 A dashboard with a birds-eye-view of all teams across the organization; each team is assigned weekly status, overall status, and a short report on how they are doing.
 
-What is the status? Teams are marked by a red, yellow, or green status symbol which represent how they are feeling mentally.  Statuses are calculated from the RYG data and provide value to admins by easily delineating the teams closest to burnout or that need special assistance.
-What is the weekly status? This is how the team is doing that week. Useful for catching short-term issues and checking how teams are feeling during stressful times at the company.
-What is the overall status? This shows in what direction the team tends to trend.  This is a useful indicator over time of larger, more fundamental problems with the team.
-What is the report? The report is a more personal, in-depth look at a team's status.  It includes a short explanation of how the team is doing, along with snippets from the team's weekly check-in.  Trust is a fundamental part of the Kona experience and it's important that Kona users feel safe sharing their day-to-day with the team. For this reason, only pieces of the what team members are saying are provided to admins and the users' names are not included for some degree of anonymity.  If it looks like a team is in need of help, a contact link is included so that admins can directly coordinate with the team's manager on how best to assist.
+**What is the status?** Teams are marked by a red, yellow, or green status symbol which represent how they are feeling mentally.  Statuses are calculated from the RYG data and provide value to admins by easily delineating the teams closest to burnout or that need special assistance.\
+**What is the weekly status?** This is how the team is doing that week. Useful for catching short-term issues and checking how teams are feeling during stressful times at the company.\
+**What is the overall status?** This shows in what direction the team tends to trend.  This is a useful indicator over time of larger, more fundamental problems with the team.\
+**What is the report?** The report is a more personal, in-depth look at a team's status.  It includes a short explanation of how the team is doing, along with snippets from the team's weekly check-in.  Trust is a fundamental part of the Kona experience and it's important that Kona users feel safe sharing their day-to-day with the team. For this reason, only pieces of the what team members are saying are provided to admins and the users' names are not included for some degree of anonymity.  If it looks like a team is in need of help, a contact link is included so that admins can directly coordinate with the team's manager on how best to assist.
 
 The code itself is a Node.js + Express backend/API that parses the CSV file, then sends information to the frontend after the frontend calls its /teamInfo endpoint. The frontend is in React + MaterialUI and displays the backend info accordingly.
 
@@ -140,8 +134,8 @@ Example of a report generated for a team that doesn't use Kona often:
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: images/dashboard-view.png
-[report-1]: images/report-1.png
-[report-2]: images/report-2.png
+[report-1]: images/report-view-1.png
+[report-2]: images/report-view-2.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
